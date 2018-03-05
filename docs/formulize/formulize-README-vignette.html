@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<!-- saved from url=(0068)file:///tmp/RtmpEla5sX/preview-14cd55459291.dir/readme-vignette.html -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+
+<meta name="generator" content="pandoc">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="author" content="Alex Hayes">
+
+<meta name="date" content="2018-03-05">
+
+<title>Add Formula Interfaces to Modelling Functions</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+
+
+<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css">
+
+<script type="text/javascript" src="./formulize-README-vignette_files/MathJax.js"></script></head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Add Formula Interfaces to Modelling Functions</h1>
+<h4 class="author"><em>Alex Hayes</em></h4>
+<h4 class="date"><em>2018-03-05</em></h4>
+
+
+
+<!-- This vignette was automatically created from README.Rmd -->
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+<div id="formulize" class="section level1">
+<h1>formulize</h1>
+<p><a href="https://travis-ci.org/alexpghayes/formulize"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5MCIgaGVpZ2h0PSIyMCI+PGxpbmVhckdyYWRpZW50IGlkPSJhIiB4Mj0iMCIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI2JiYiIgc3RvcC1vcGFjaXR5PSIuMSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1vcGFjaXR5PSIuMSIvPjwvbGluZWFyR3JhZGllbnQ+PHJlY3Qgcng9IjMiIHdpZHRoPSI5MCIgaGVpZ2h0PSIyMCIgZmlsbD0iIzU1NSIvPjxyZWN0IHJ4PSIzIiB4PSIzNyIgd2lkdGg9IjUzIiBoZWlnaHQ9IjIwIiBmaWxsPSIjNGMxIi8+PHBhdGggZmlsbD0iIzRjMSIgZD0iTTM3IDBoNHYyMGgtNHoiLz48cmVjdCByeD0iMyIgd2lkdGg9IjkwIiBoZWlnaHQ9IjIwIiBmaWxsPSJ1cmwoI2EpIi8+PGcgZmlsbD0iI2ZmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkRlamFWdSBTYW5zLFZlcmRhbmEsR2VuZXZhLHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTEiPjx0ZXh0IHg9IjE5LjUiIHk9IjE1IiBmaWxsPSIjMDEwMTAxIiBmaWxsLW9wYWNpdHk9Ii4zIj5idWlsZDwvdGV4dD48dGV4dCB4PSIxOS41IiB5PSIxNCI+YnVpbGQ8L3RleHQ+PHRleHQgeD0iNjIuNSIgeT0iMTUiIGZpbGw9IiMwMTAxMDEiIGZpbGwtb3BhY2l0eT0iLjMiPnBhc3Npbmc8L3RleHQ+PHRleHQgeD0iNjIuNSIgeT0iMTQiPnBhc3Npbmc8L3RleHQ+PC9nPjwvc3ZnPg==" alt="Travis build status"></a> <a href="https://ci.appveyor.com/project/alexpghayes/formulize"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDYiIGhlaWdodD0iMjAiIHN0eWxlPSJzaGFwZS1yZW5kZXJpbmc6Z2VvbWV0cmljUHJlY2lzaW9uOyBpbWFnZS1yZW5kZXJpbmc6b3B0aW1pemVRdWFsaXR5OyBmaWxsLXJ1bGU6ZXZlbm9kZDsgY2xpcC1ydWxlOmV2ZW5vZGQiPg0KICA8bGluZWFyR3JhZGllbnQgaWQ9ImIiIHgyPSIwIiB5Mj0iMTAwJSI+DQogICAgPHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjYmJiIiBzdG9wLW9wYWNpdHk9Ii4xIi8+DQogICAgPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLW9wYWNpdHk9Ii4xIi8+DQogIDwvbGluZWFyR3JhZGllbnQ+DQogIDxtYXNrIGlkPSJhIj4NCiAgICA8cmVjdCB3aWR0aD0iMTA2IiBoZWlnaHQ9IjIwIiByeD0iMyIgZmlsbD0iI2ZmZiIvPg0KICA8L21hc2s+DQogIDxnIG1hc2s9InVybCgjYSkiPg0KICAgIDxwYXRoIGZpbGw9IiM1NTUiIGQ9Ik0wIDBoNTN2MjBIMHoiLz4NCiAgICA8cGF0aCBmaWxsPSIjNGMxIiBkPSJNNTMgMGg4NHYyMEg1M3oiLz4NCiAgICA8cGF0aCBmaWxsPSJ1cmwoI2IpIiBkPSJNMCAwaDEwNnYyMEgweiIvPg0KICA8L2c+DQogIDxnIHRyYW5zZm9ybT0ibWF0cml4KDAuMDQ1LDAsMCwwLjA0NSwwLDEuMDIyNzI3MikiPg0KICAgIDxwYXRoIGZpbGw9IiNjY2MiIGQ9Ik0yNDIgNDhjODYsMCAxNTUsNjkgMTU1LDE1NCAwLDg2IC02OSwxNTUgLTE1NSwxNTUgLTg1LDAgLTE1NCwtNjkgLTE1NCwtMTU1IDAsLTg1IDY5LC0xNTQgMTU0LC0xNTR6bTM4IDE4NGMtMTcsMjIgLTQ4LDI2IC02OSw5IC0yMSwtMTYgLTI0LC00NyAtNywtNjkgMTgsLTIxIDQ5LC0yNSA3MCwtOSAyMSwxNyAyNCw0OCA2LDY5em0tODIgMTAxbDU5IC01N2MtMjIsNSAtNDUsMSAtNjMsLTE0IC0yMSwtMTYgLTMwLC00MyAtMjcsLTY4bC01MyA1OGMwLDAgLTcsLTEzIC05LC0zN2w5MyAtNzNjMjgsLTIwIDY2LC0yMSA5MywwIDMwLDI0IDM2LDY4IDE0LDEwMWwtNjggOTdjLTEwLDAgLTMwLC0zIC0zOSwtN3oiLz4NCiAgPC9nPg0KICA8ZyBmaWxsPSIjZmZmIiBmb250LWZhbWlseT0iRGVqYVZ1IFNhbnMsVmVyZGFuYSxHZW5ldmEsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMSI+DQoNCiAgICA8dGV4dCB4PSIyMiIgeT0iMTUiIGZpbGw9IiMwMTAxMDEiIGZpbGwtb3BhY2l0eT0iLjMiPmJ1aWxkPC90ZXh0Pg0KICAgIDx0ZXh0IHg9IjIyIiB5PSIxNCI+YnVpbGQ8L3RleHQ+DQoNCiAgICA8dGV4dCB4PSI1OCIgeT0iMTUiIGZpbGw9IiMwMTAxMDEiIGZpbGwtb3BhY2l0eT0iLjMiPnBhc3Npbmc8L3RleHQ+DQogICAgPHRleHQgeD0iNTgiIHk9IjE0Ij5wYXNzaW5nPC90ZXh0Pg0KICA8L2c+DQo8L3N2Zz4=" alt="AppVeyor Build Status"></a> <a href="https://codecov.io/github/alexpghayes/formulize?branch=master"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5NiIgaGVpZ2h0PSIyMCI+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImIiIHgyPSIwIiB5Mj0iMTAwJSI+CiAgICAgICAgPHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjYmJiIiBzdG9wLW9wYWNpdHk9Ii4xIiAvPgogICAgICAgIDxzdG9wIG9mZnNldD0iMSIgc3RvcC1vcGFjaXR5PSIuMSIgLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICA8bWFzayBpZD0iYSI+CiAgICAgICAgPHJlY3Qgd2lkdGg9Ijk2IiBoZWlnaHQ9IjIwIiByeD0iMyIgZmlsbD0iI2ZmZiIgLz4KICAgIDwvbWFzaz4KICAgIDxnIG1hc2s9InVybCgjYSkiPgogICAgICAgIDxwYXRoIGZpbGw9IiM1NTUiIGQ9Ik0wIDBoNjB2MjBIMHoiIC8+CiAgICAgICAgPHBhdGggZmlsbD0iIzVmY2MwYiIgZD0iTTYwIDBoMzZ2MjBINjB6IiAvPgogICAgICAgIDxwYXRoIGZpbGw9InVybCgjYikiIGQ9Ik0wIDBoOTZ2MjBIMHoiIC8+CiAgICA8L2c+CiAgICA8ZyBmaWxsPSIjZmZmIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iRGVqYVZ1IFNhbnMsVmVyZGFuYSxHZW5ldmEsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMSI+CiAgICAgICAgPHRleHQgeD0iMzAiIHk9IjE1IiBmaWxsPSIjMDEwMTAxIiBmaWxsLW9wYWNpdHk9Ii4zIj5jb2RlY292PC90ZXh0PgogICAgICAgIDx0ZXh0IHg9IjMwIiB5PSIxNCI+Y29kZWNvdjwvdGV4dD4KICAgICAgICA8dGV4dCB4PSI3NyIgeT0iMTUiIGZpbGw9IiMwMTAxMDEiIGZpbGwtb3BhY2l0eT0iLjMiPjk4JTwvdGV4dD4KICAgICAgICA8dGV4dCB4PSI3NyIgeT0iMTQiPjk4JTwvdGV4dD4KICAgIDwvZz4KPC9zdmc+" alt="Coverage status"></a> <a href="https://cran.rstudio.com/web/packages/formulize/index.html"><img src="data:image/svg+xml; charset=utf-8;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4NSIgaGVpZ2h0PSIyMCI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJiIiB4Mj0iMCIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjYmJiIiBzdG9wLW9wYWNpdHk9Ii4xIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEiIHN0b3Atb3BhY2l0eT0iLjEiLz4KICA8L2xpbmVhckdyYWRpZW50PgogIDxtYXNrIGlkPSJhIj4KICAgIDxyZWN0IHdpZHRoPSI4NSIgaGVpZ2h0PSIyMCIgcng9IjMiIGZpbGw9IiNmZmYiLz4KICA8L21hc2s+CiAgPGcgbWFzaz0idXJsKCNhKSI+CiAgICA8cGF0aCBmaWxsPSIjNTU1IiBkPSJNMCAwaDQzdjIwSDB6Ii8+CiAgICA8cGF0aCBmaWxsPSIjNGMxIiBkPSJNNDMgMGg2M3YyMEg0M3oiLz4KICAgIDxwYXRoIGZpbGw9InVybCgjYikiIGQ9Ik0wIDBoODV2MjBIMHoiLz4KICA8L2c+CiAgPGcgZmlsbD0iI2ZmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIKICAgICBmb250LWZhbWlseT0iRGVqYVZ1IFNhbnMsVmVyZGFuYSxHZW5ldmEsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMSI+CiAgICA8dGV4dCB4PSIyMS41IiB5PSIxNSIgZmlsbD0iIzAxMDEwMSIgZmlsbC1vcGFjaXR5PSIuMyI+CiAgICAgIENSQU4KICAgIDwvdGV4dD4KICAgIDx0ZXh0IHg9IjIxLjUiIHk9IjE0Ij4KICAgICAgQ1JBTgogICAgPC90ZXh0PgogICAgPHRleHQgeD0iNjMiIHk9IjE1IiBmaWxsPSIjMDEwMTAxIiBmaWxsLW9wYWNpdHk9Ii4zIj4KICAgICAgMC4xLjAKICAgIDwvdGV4dD4KICAgIDx0ZXh0IHg9IjYzIiB5PSIxNCI+CiAgICAgIDAuMS4wCiAgICA8L3RleHQ+CiAgPC9nPgo8L3N2Zz4=" alt="CRAN_Status_Badge"></a> <img src="data:image/svg+xml; charset=utf-8;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNDkiIGhlaWdodD0iMjAiPgogIDxsaW5lYXJHcmFkaWVudCBpZD0iYiIgeDI9IjAiIHkyPSIxMDAlIj4KICAgIDxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI2JiYiIgc3RvcC1vcGFjaXR5PSIuMSIvPgogICAgPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLW9wYWNpdHk9Ii4xIi8+CiAgPC9saW5lYXJHcmFkaWVudD4KICA8bWFzayBpZD0iYSI+CiAgICA8cmVjdCB3aWR0aD0iMTQ5IiBoZWlnaHQ9IjIwIiByeD0iMyIgZmlsbD0iI2ZmZiIvPgogIDwvbWFzaz4KICA8ZyBtYXNrPSJ1cmwoI2EpIj48cGF0aCBmaWxsPSIjNTU1IiBkPSJNMCAwaDcwdjIwSDB6Ii8+CiAgICA8cGF0aCBmaWxsPSIjMDA3ZWM2IiBkPSJNNzAgMGg3OXYyMEg3MHoiLz4KICAgIDxwYXRoIGZpbGw9InVybCgjYikiIGQ9Ik0wIDBoMTQ5djIwSDB6Ii8+CiAgPC9nPgogIDxnIGZpbGw9IiNmZmYiIHRleHQtYW5jaG9yPSJtaWRkbGUiCiAgICAgZm9udC1mYW1pbHk9IkRlamFWdSBTYW5zLFZlcmRhbmEsR2VuZXZhLHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTEiPgogICAgPHRleHQgeD0iMzYiIHk9IjE1IiBmaWxsPSIjMDEwMTAxIiBmaWxsLW9wYWNpdHk9Ii4zIj4KICAgICAgZG93bmxvYWRzCiAgICA8L3RleHQ+CiAgICA8dGV4dCB4PSIzNiIgeT0iMTQiPgogICAgICBkb3dubG9hZHMKICAgIDwvdGV4dD4KICAgIDx0ZXh0IHg9IjEwOC41IiB5PSIxNSIgZmlsbD0iIzAxMDEwMSIgZmlsbC1vcGFjaXR5PSIuMyI+CiAgICAgIDk5L21vbnRoCiAgICA8L3RleHQ+CiAgICA8dGV4dCB4PSIxMDguNSIgeT0iMTQiPgogICAgICA5OS9tb250aAogICAgPC90ZXh0PgogIDwvZz4KPC9zdmc+" alt="Downloads"></p>
+<p>If you:</p>
+<ul>
+<li>like using formulas, recipes and data frames to specify design matrices</li>
+<li>develop nervous ticks when you come across modelling packages that only offer matrix/vector interfaces</li>
+<li>don’t have the time or motivation to write a formula wrapper around these interfaces</li>
+<li>like untested and hacky software written by amateurs</li>
+</ul>
+<p>then <code>formulize</code> may be for you. Formulize is very new, but you can install it from CRAN if you have R 3.4+ with:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">"formulize"</span>)</code></pre></div>
+<p>You can get the development version (recommended) with:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages("devtools")</span>
+devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">"alexpghayes/formulize"</span>)</code></pre></div>
+<div id="adding-a-formula-or-recipe-interface" class="section level2">
+<h2>Adding a formula or recipe interface</h2>
+<p>Suppose you want to add a formula interface to an existing modelling function, say <code>cv.glmnet</code>. Then you could do the following</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(recipes)
+<span class="kw">library</span>(glmnet)
+<span class="kw">library</span>(formulize)
+
+glmnet_cv &lt;-<span class="st"> </span><span class="kw">formulize</span>(cv.glmnet)
+
+glmnet_model &lt;-<span class="st"> </span><span class="kw">glmnet_cv</span>(mpg <span class="op">~</span><span class="st"> </span>drat <span class="op">+</span><span class="st"> </span>hp <span class="op">-</span><span class="st"> </span><span class="dv">1</span>, mtcars)
+<span class="kw">predict</span>(glmnet_model, <span class="kw">head</span>(mtcars))
+<span class="co">#&gt;                          1</span>
+<span class="co">#&gt; Mazda RX4         22.44822</span>
+<span class="co">#&gt; Mazda RX4 Wag     22.44822</span>
+<span class="co">#&gt; Datsun 710        22.95815</span>
+<span class="co">#&gt; Hornet 4 Drive    19.94218</span>
+<span class="co">#&gt; Hornet Sportabout 17.62212</span>
+<span class="co">#&gt; Valiant           19.15914</span></code></pre></div>
+<p>Similarly <code>glmnet_cv</code> works with recipe objects like so</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rec &lt;-<span class="st"> </span><span class="kw">recipe</span>(mpg <span class="op">~</span><span class="st"> </span>drat <span class="op">+</span><span class="st"> </span>hp, <span class="dt">data =</span> mtcars)
+
+glmnet_model2 &lt;-<span class="st"> </span><span class="kw">glmnet_cv</span>(rec, mtcars)
+<span class="kw">predict</span>(glmnet_model2, <span class="kw">head</span>(mtcars))
+<span class="co">#&gt;             1</span>
+<span class="co">#&gt; [1,] 22.35392</span>
+<span class="co">#&gt; [2,] 22.35392</span>
+<span class="co">#&gt; [3,] 22.85062</span>
+<span class="co">#&gt; [4,] 19.97897</span>
+<span class="co">#&gt; [5,] 17.72884</span>
+<span class="co">#&gt; [6,] 19.24084</span></code></pre></div>
+<p>You may also be interested in the more <del>dangerous</del> exciting version <code>genericize</code>, which you should call for its side effects.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">genericize</span>(cv.glmnet)
+
+form &lt;-<span class="st"> </span>mpg <span class="op">~</span><span class="st"> </span>drat <span class="op">+</span><span class="st"> </span>hp <span class="op">-</span><span class="st"> </span><span class="dv">1</span>
+X &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(form, mtcars)
+y &lt;-<span class="st"> </span>mtcars<span class="op">$</span>mpg
+
+<span class="kw">set.seed</span>(<span class="dv">27</span>)
+mat_model &lt;-<span class="st"> </span><span class="kw">cv.glmnet</span>(X, y, <span class="dt">intercept =</span> <span class="ot">TRUE</span>)
+
+<span class="kw">set.seed</span>(<span class="dv">27</span>)
+frm_model &lt;-<span class="st"> </span><span class="kw">cv.glmnet</span>(form, mtcars, <span class="dt">intercept =</span> <span class="ot">TRUE</span>)
+
+<span class="kw">set.seed</span>(<span class="dv">27</span>)
+rec_model &lt;-<span class="st"> </span><span class="kw">cv.glmnet</span>(rec, mtcars, <span class="dt">intercept =</span> <span class="ot">TRUE</span>)
+
+<span class="kw">predict</span>(mat_model, <span class="kw">head</span>(X))
+<span class="co">#&gt;                          1</span>
+<span class="co">#&gt; Mazda RX4         22.25028</span>
+<span class="co">#&gt; Mazda RX4 Wag     22.25028</span>
+<span class="co">#&gt; Datsun 710        22.73249</span>
+<span class="co">#&gt; Hornet 4 Drive    20.01959</span>
+<span class="co">#&gt; Hornet Sportabout 17.84620</span>
+<span class="co">#&gt; Valiant           19.33092</span>
+<span class="kw">predict</span>(frm_model, <span class="kw">head</span>(mtcars))
+<span class="co">#&gt;                          1</span>
+<span class="co">#&gt; Mazda RX4         22.25028</span>
+<span class="co">#&gt; Mazda RX4 Wag     22.25028</span>
+<span class="co">#&gt; Datsun 710        22.73249</span>
+<span class="co">#&gt; Hornet 4 Drive    20.01959</span>
+<span class="co">#&gt; Hornet Sportabout 17.84620</span>
+<span class="co">#&gt; Valiant           19.33092</span>
+<span class="kw">predict</span>(rec_model, <span class="kw">head</span>(mtcars))
+<span class="co">#&gt;             1</span>
+<span class="co">#&gt; [1,] 22.25035</span>
+<span class="co">#&gt; [2,] 22.25035</span>
+<span class="co">#&gt; [3,] 22.73255</span>
+<span class="co">#&gt; [4,] 20.01946</span>
+<span class="co">#&gt; [5,] 17.84608</span>
+<span class="co">#&gt; [6,] 19.33070</span></code></pre></div>
+<p>This creates a new S3 generic <code>cv.glmnet</code>, sets the provided function as the default method (<code>cv.glmnet.default</code>), and adds methods <code>cv.glmnet.formula</code> and <code>cv.glmnet.recipe</code> using <code>formulize</code>.</p>
+<p>This will mask <code>cv.glmnet</code> and features no safety checks because safety isn’t fun.</p>
+</div>
+<div id="caveats" class="section level2">
+<h2>Caveats</h2>
+<ul>
+<li><code>formulize</code> doesn’t do anything special with intercepts. This means that you need to careful with functions that require you to specify intercepts in non-standard ways, such as <code>cv.glmnet</code> above.</li>
+<li>If the original modelling function doesn’t return a list, <code>formulize</code> will probably break.</li>
+<li>If you’re just looking for a formula interface to <code>glmnet</code>, take a look at <a href="https://github.com/Hong-Revo/glmnetUtils">glmnetUtils</a>.</li>
+</ul>
+</div>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+
+
+</body></html>

@@ -14,6 +14,8 @@ https://jonocarroll.github.io/VolunteerVignettes/mazealls/mazealls-README-vignet
 
 https://jonocarroll.github.io/VolunteerVignettes/patchwork/patchwork-README-vignette.html
 
+https://jonocarroll.github.io/VolunteerVignettes/formulize/formulize-README-vignette.html
+
 https://jonocarroll.github.io/VolunteerVignettes/remedy/remedy-README-vignette.html (large file size warning; lots of embedded gifs)
 
 Performing these conversions highlighted some issues with the process, even after careful treatment; mainly images in unexpected (to the vignette) places. But it also highlighted some neat issues with the READMEs themselves; packages used in the `README` which weren't marked as `Import`/`Suggests`, and image locations not existing. In theory more could be wrong; there is nothing stopping the `README` from becomming stale. Vignettes are built on install, so something should get flagged either on local check/build/install or during continuous integration testing.
